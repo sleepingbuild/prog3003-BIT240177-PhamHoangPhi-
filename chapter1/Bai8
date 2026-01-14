@@ -1,0 +1,21 @@
+import java.util.HashMap;
+
+public class Bai8 {
+    public static void main(String[] args){
+        HashMap<Integer,String> employees = new HashMap<>();
+        employees.put(101, "Anna");
+        employees.put(102, "Peter");
+        employees.put(103, "Marry");
+        System.out.println("Danh sach sinh vien: " + employees);
+        String name102 = employees.get(102);
+        System.out.println("Sinh vien co id 102: " + name102);
+
+        if(!employees.containsKey(105)){
+            System.out.println("Ma 105 khong ton tai trong danh sach.");
+            employees.put(105, "Unknown");
+            System.out.println("Danh sach sinh vien sau khi them: " + employees);
+        } else {
+           System.out.println("Ma 105 ton tai trong danh sach.");
+        }
+    }
+}
