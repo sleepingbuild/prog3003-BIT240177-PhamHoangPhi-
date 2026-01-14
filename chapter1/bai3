@@ -1,1 +1,37 @@
+interface Pair<K, V> {
+    K getKey();
+    V getValue();
+}
+
+class OrederedPair<K,V> implements Pair<K,V>{
+    private K key;
+    private V value;
+
+    public OrederedPair(K key, V value){
+        this.key = key;
+        this.value = value;
+    }
+
+    @Override
+    public K getKey() {
+        return key;
+}
+
+    @Override
+    public V getValue() {
+        return value;
+    }
+}
+
+
+public class Bai3 {
+    public static void main(String[] args){
+        Pair<String, Integer> maSV = new OrederedPair<>("MSSV", 1017);
+        Pair<String,String> tenSV = new OrederedPair<>("Tên SV", "Nguyen Thi Hoa");
+
+        System.out.println("==== STUDENT INFORMATION ====");
+        System.out.println(maSV.getKey() + ": " + maSV.getValue());
+        System.out.println(tenSV.getKey() + ": " + tenSV.getValue());
+    }
+}
 
