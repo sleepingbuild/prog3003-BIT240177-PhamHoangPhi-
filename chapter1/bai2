@@ -1,1 +1,26 @@
 
+public class Bai2 {
+    public static <E> void printArray(E[] array) {
+        for (E element : array) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+    public static void main(String[] args){
+        Integer[] intArray = {5,4,3,2,1};
+        System.out.print("Integer Array: ");
+        printArray(intArray);
+
+        String[] stringArray = {"Hello", "World"};
+        System.out.print("String Array: ");
+        printArray(stringArray);
+
+        Double[] doubleArray = {1.5,7.8,9.4};
+        System.out.print("Double Array: ");
+        printArray(doubleArray);
+
+        Character[] charArray = {'A', 'B', 'C', 'D'};
+        System.out.print("Character Array: ");
+        printArray(charArray);
+    }
+}
