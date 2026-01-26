@@ -1,1 +1,35 @@
+public class DatabaseConnection {
+    private static DatabaseConnection instance;
 
+    private DatabaseConnection() {
+        System.out.println("Khoi tao ket noi db");
+    }
+
+    public static DatabaseConnection getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnection();
+        }
+        return instance;
+    }
+    public void connect(){
+        System.out.println("Ket noi db");
+    }
+    public void disconnect(){
+        System.out.println("ngat ket noi db");
+    }
+    public void executeQuery(String query){
+        System.out.println("Xu ly chuoi: " + query);
+    }
+}
+
+public class bai1 {
+    public static void main(String[] args){
+        DatabaseConnection db1 = DatabaseConnection.getInstance();
+        DatabaseConnection db2  = DatabaseConnection.getInstance();
+
+        db1.connect();
+        db1.executeQuery("SELECT * FROM users");
+
+        System.out.println("2 db co cung instance? " + (db1 == db2));
+    }
+}
