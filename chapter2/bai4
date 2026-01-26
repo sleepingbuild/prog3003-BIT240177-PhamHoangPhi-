@@ -1,0 +1,102 @@
+interface PaymentStrategy{
+    void pay(int amount);
+}
+
+class CreditCardPayment implements PaymentStrategy{
+    private String cardNumber;
+    private String cardHolderName;
+
+    public CreditCardPayment(String cardNumber, String cardHolderName){
+        this.cardNumber = cardNumber;
+        this.cardHolderName = cardHolderName;
+    }
+    private String maskCardNumber(String cardNumber){
+        if(cardNumber.length() > 4){
+            return "*****_****_****" + cardNumber.substring(cardNumber.length()-4);
+        }
+        return cardNumber;
+    }
+    @Override
+    public void pay(int amount){
+        System.out.println("Thanh toan "+ amount + " bang the tin dung" );
+        System.out.println("So the: " + maskCardNumber(cardNumber) );
+        System.out.println("Chu the: " + cardHolderName);
+        System.out.println("Dang xu ly giao dich......");
+        System.out.println("Thanh toan thanh cong!");
+    }
+
+
+
+}
+
+class PayPalPayment implements PaymentStrategy{
+    private String email;
+    private String password;
+
+    public PayPalPayment(String email,String password){
+        this.email = email;
+        this.password = password;
+    }
+    @Override
+    public void pay(int amount){
+        System.out.println("Thanh toan $" + amount + " bang PayPal:");
+        System.out.println("  Email: " + email);
+        System.out.println("  Đang ke noi den  PayPal...");
+        System.out.println("  Xac thuc thanh cong!");
+        System.out.println("  Thanh toan thanh cong!");
+    }
+}
+
+class ShoppingCart{
+    private PaymentStrategy paymentStrategy;
+    private int totalAmount;
+
+    public ShoppingCart(){
+        this.totalAmount = 0;
+    }
+    public void addItem(String itemName, int price){
+        System.out.println("Da them " + itemName +" vao gio hang");
+        totalAmount+= price;
+    }
+    public int getTotalAmount(){
+        return totalAmount;
+    }
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy){
+        this.paymentStrategy = paymentStrategy;
+        System.out.println("Da chon phuong an thanh toan: " + paymentStrategy.getClass().getSimpleName());
+    }
+    public void checkout(){
+        if(paymentStrategy == null){
+            System.out.println("Vui long chon phuong thuc thanh toan");
+            return;
+        }
+        if(totalAmount <=0){
+            System.out.println("Gio hang trong!");
+            return;
+        }
+        System.out.println("=== Bat dau thanh toan ===");
+        paymentStrategy.pay(totalAmount);
+
+        totalAmount = 0;
+        System.out.println("Gio hang da duoc reset");
+    }
+}
+public class bai4 {
+    public static void main(String[] args){
+        ShoppingCart cart = new ShoppingCart();
+
+        cart.addItem("Laptop",1600);
+        cart.addItem("Mouse",100);
+        System.out.println("Tong tien: " + cart.getTotalAmount());
+        System.out.println("=== Thanh toan lan 1 ===");
+        PaymentStrategy creditCard = new CreditCardPayment("1234-5678-9100-1112","Le Van A");
+        cart.setPaymentStrategy(creditCard);
+        cart.checkout();
+
+        System.out.println("=== Thanh toan lan 2 ===");
+        PaymentStrategy paypal = new PayPalPayment("abc@gmail.com","123");
+        cart.setPaymentStrategy(paypal);
+
+
+    }
+}
