@@ -1,0 +1,59 @@
+interface MessageService{
+    void sendMessage(String message);
+}
+
+class EmailService implements MessageService{
+    @Override
+    public void sendMessage(String message){
+        System.out.println("Email da duoc gui thanh cong!");
+    }
+}
+class SMSService implements MessageService{
+    @Override
+    public void sendMessage(String message){
+        System.out.println("SMS da duoc gui thanh cong!");
+    }
+}
+class NotificationMess{
+    private MessageService messageService;
+
+    public NotificationMess(){
+        System.out.println("Da tao doi tuong Notification");
+    }
+    public void setMessageService(MessageService messageService){
+        this.messageService = messageService;
+        System.out.println("Da thiet lap MessageService: " + messageService.getClass().getSimpleName());
+    }
+
+    public void sendNotification(String message){
+        if(messageService == null){
+            System.out.println("Chua thiet lap MessageService!");
+            return;
+        }
+        messageService.sendMessage(message);
+    }
+
+}
+
+
+
+
+public class bai5 {
+    public static void main(String[] args){
+        System.out.println("=== He thong gui thong bao ===");
+        MessageService emailService = new EmailService();
+        MessageService smsService = new SMSService();
+
+        NotificationMess notificationMess = new NotificationMess();
+
+        System.out.println("---- Thong bao Email ----");
+        notificationMess.setMessageService(emailService);
+        
+
+        System.out.println("---- Thong bao SMS ---- ");
+        notificationMess.setMessageService(smsService);
+
+
+
+    }
+}
